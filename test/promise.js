@@ -45,3 +45,19 @@ exports['throw as reject in promise'] = function (test) {
 		test.done();
 	});
 };
+
+exports['chain thens'] = function (test) {
+	test.async();
+	
+	var promise = pp.promise(function (resolve, reject) {
+		resolve(41);
+	});
+	
+	promise.then(function (value) {
+		return value + 1;
+	}).then(function (value) {
+		test.equal(value, 42);
+		test.done();
+	});
+};
+
