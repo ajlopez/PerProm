@@ -61,3 +61,20 @@ exports['chain thens'] = function (test) {
 	});
 };
 
+exports['chain three thens'] = function (test) {
+	test.async();
+	
+	var promise = pp.promise(function (resolve, reject) {
+		resolve(20);
+	});
+	
+	promise.then(function (value) {
+		return value + 1;
+	}).then(function (value) {
+		return value * 2;
+	}).then(function (value) {
+		test.equal(value, 42);
+		test.done();
+	});
+};
+
