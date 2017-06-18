@@ -30,3 +30,18 @@ exports['create and reject promise'] = function (test) {
 	});
 };
 
+exports['throw as reject in promise'] = function (test) {
+	test.async();
+	
+	var promise = pp.promise(function (resolve, reject) {
+		throw 42;
+	});
+	
+	promise.then(function (value) {
+		test.equal(value, 42);
+		test.fail();
+	}, function (err) {
+		test.equal(err, 42);
+		test.done();
+	});
+};
