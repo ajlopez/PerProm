@@ -78,3 +78,17 @@ exports['chain three thens'] = function (test) {
 	});
 };
 
+exports['chain then that returns a promise'] = function (test) {
+	test.async();
+	
+	var promise = pp.promise(function (resolve, reject) {
+		resolve(41);
+	});
+	
+	promise.then(function (value) {
+		return pp.promise(function (resolve, reject) { resolve(value + 1); });
+	}).then(function (value) {
+		test.equal(value, 42);
+		test.done();
+	});
+};
