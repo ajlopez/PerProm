@@ -30,22 +30,6 @@ exports['create and reject promise'] = function (test) {
 	});
 };
 
-exports['create and reject promise using catch'] = function (test) {
-	test.async();
-	
-	var promise = pp.promise(function (resolve, reject) {
-		reject(42);
-	});
-	
-	promise.then(function (value) {
-		test.equal(value, 42);
-		test.fail();
-	}).catch(function (err) {
-		test.equal(err, 42);
-		test.done();
-	});
-};
-
 exports['throw as reject in promise'] = function (test) {
 	test.async();
 	
@@ -121,6 +105,22 @@ exports['chain then that returns a promise and reject it'] = function (test) {
 	}).then(function (value) {
 		test.fail();
 	}, function (err) {
+		test.equal(err, 42);
+		test.done();
+	});
+};
+
+exports['create and reject promise using catch'] = function (test) {
+	test.async();
+	
+	var promise = pp.promise(function (resolve, reject) {
+		reject(42);
+	});
+	
+	promise.then(function (value) {
+		test.equal(value, 42);
+		test.fail();
+	}).catch(function (err) {
 		test.equal(err, 42);
 		test.done();
 	});
